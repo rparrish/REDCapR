@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>REDCapR by OuhscBbmc</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>REDCapR</h1>
+        <h2>Utilities for interacting with a REDCap data system (http://www.project-redcap.org/)</h2>
+        <a href="https://github.com/OuhscBbmc/REDCapR" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/OuhscBbmc/REDCapR"><img src="https://travis-ci.org/OuhscBbmc/REDCapR.png?branch=master" alt="Build Status"></a></p>
+
+<h1>
+<a name="redcapr" class="anchor" href="#redcapr"><span class="octicon octicon-link"></span></a>REDCapR</h1>
+
+<p>We’ve been using R with REDCap’s API since the Fall 2012 and have developed a few functions that we're assembling in an R package: <a href="https://github.com/OuhscBbmc/REDCapR">REDCapR</a>.</p>
+
+<p>It was taking us about 50 lines of code to contact REDCap and robustly transform the returned CSV into an R <code>data.frame</code>.  The same thing can be done in one line of code with the package's <code>redcap_read()</code> function:</p>
+
+<pre><code>ds &lt;- redcap_read(redcap_uri=uri, token=token)$data
+</code></pre>
+
+<p>The <code>REDCapR</code> package includes the <a href="http://curl.haxx.se/ca/cacert.pem">Bundle of CA Root Certificates</a> from the official <a href="http://curl.haxx.se">cURL site</a>.  Your REDCap server's identity is always verified, unless the setting is overridden (or alternative certificates can also be provided).</p>
+
+<p>The <code>redcap_read()</code> function also accepts values for subsetting/filtering the records and fields.  The <a href="https://github.com/OuhscBbmc/REDCapR/blob/master/REDCapRDocumentationPeek.pdf">current documentation</a> can be found in the <a href="https://github.com/OuhscBbmc/REDCapR">GitHub repository</a>.  A <a href="http://htmlpreview.github.io/?https://github.com/OuhscBbmc/REDCapR/blob/master/inst/doc/BasicREDCapROperations.html">vignette</a> has also been started.</p>
+
+<pre><code>#Return only records with IDs of 1 and 4
+desired_records &lt;- c(1, 4)
+ds_some_rows &lt;- redcap_read(
+   redcap_uri = uri, 
+   token = token, 
+   records = desired_records
+)$data
+
+#Return only the fields recordid, first_name, and age
+desired_fields &lt;- c("recordid", "first_name", "age")
+ds_some_fields &lt;- redcap_read(
+   redcap_uri = uri, 
+   token = token, 
+   fields = desired_fields
+)$data
+</code></pre>
+
+<p>We have completed <code>redcap_write()</code>, but aren't releasing it until appropriate unit/regression/integration tests are written.  We first need a way to automate deleting the newly inserted records, so the database's state is cleaned up before subsequent tests.</p>
+
+<p>Once the <code>redcap_write()</code> function is tested and documented, we'll release it on <a href="http://cran.r-project.org/web/packages/">CRAN</a>.  In the next few months, we hope to implement everything exposed by the REDCap API.  If there's a feature that would help your projects, feel free to post something here in the forums, or create an issue in REDCapR's <a href="https://github.com/OuhscBbmc/REDCapR/issues">GitHub repository</a>.  </p>
+
+<p>Our group has benefited so much from REDCap and the surrounding community, and we'd like to contribute back.  Suggestions, criticisms, and code contributions are welcome.  And if anyone is interested in trying a direction that suits them better, we'll be happy to explain the package's internals and help you fork your own version.  We have some starting material described in the <a href="https://github.com/OuhscBbmc/REDCapR/tree/master/documentation_for_developers"><code>./documentation_for_developers/</code></a> directory.</p>
+
+<p>Thanks, 
+Will Beasley, David Bard, &amp; Thomas Wilson</p>
+
+<p><a href="http://ouhsc.edu/">University of Oklahoma Health Sciences Center</a>,
+<a href="https://www.oumedicine.com/pediatrics">Department of Pediatrics</a>,
+<a href="http://ouhsc.edu/BBMC/">Biomedical &amp; Behavioral Research Core</a>.</p>
+
+<p>For those interested in use the development version of REDCapR, run the following two lines:</p>
+
+<pre><code>install.packages("devtools")
+devtools::install_github(repo="REDCapR", username="OuhscBbmc")
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/OuhscBbmc/REDCapR/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/OuhscBbmc/REDCapR/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/OuhscBbmc/REDCapR"></a> is maintained by <a href="https://github.com/OuhscBbmc">OuhscBbmc</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
