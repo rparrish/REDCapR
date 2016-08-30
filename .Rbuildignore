@@ -2,9 +2,15 @@
 ^\.Rproj\.user$
 ^\.gitignore$
 ^\.travis.yml$
-^ShortcutLucky1304.lnk$
+^cran-comments\.md$
+README.html$
 
-DocumentationPeek.pdf
-documentation_for_developers/
+documentation-peek.pdf
+documentation-for-developers/
 playgrounds/
-utility_scripts/
+utility/
+^\.travis\.yml$
+^appveyor\.yml$
+^revdep$
+^CONDUCT\.md$
+^.*\.o$

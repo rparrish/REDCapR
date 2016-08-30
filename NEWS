@@ -1,5 +1,43 @@
-Version 0.5 (Developed 2014-09-20 through ?)
+Versions 0.9.4 (Developed 2015-08-26 through)
 ------------------------------------------------------------------------------
+Minor Updates:
+* Uses the `dplyr` package instead of `plyr`.  This shouldn't affect callers, because immediately before returning the data, `REDCapR::redcap_read()` coerces the `dplyr::tbl_df` back to a vanilla `data.frame` with `as.data.frame`.
+
+Versions 0.9.3 (Developed 2015-08-25)
+------------------------------------------------------------------------------
+Minor Updates:
+* The `retrieve-token()` tests now account for the (OS X) builds where the RODBC package isn't available.
+
+Versions 0.9 & 0.8 (Developed 2015-01-15 through 2015-08-14)
+------------------------------------------------------------------------------
+New Features:
+* Adapted for version 1.0.0 of httr (which is now based on the `curl` package, instead of `RCurl`).
+
+Minor Updates:
+* Uses `requireNamespace()` instead of `require()`.
+* By default, uses the SSL cert files used by httr, which by default, uses those packaged with R.
+* Added warning if it appears `readcap_read()` is being used without 'Full Data Set' export privileges.  The problem involves the record IDs are hashed.
+* Reconnected code that reads only the `id_position` in the first stage of batching.  The metadata needed to be read before that, after the updates for REDCap Version 6.0.x.
+* `retrieve_token_mssql()` uses regexes to validate parameters
+
+Version 0.7 (Developed 2014-12-17 through 2014-12-17)
+------------------------------------------------------------------------------
+New Features: 
+* Updated for Version 6.0.x of REDCap (which introduced a lot of improvements to API behavior).
+
+Version 0.6 (Developed 2014-10-29 through 2014-11-03)
+------------------------------------------------------------------------------
+New Features: 
+* The `config_options` in the `httr` package are exposed to the REDCapR user.  See issues #55 & #58; thanks to @rparrish and @nutterb for their contributions (https://github.com/OuhscBbmc/REDCapR/issues/55 & https://github.com/OuhscBbmc/REDCapR/issues/58).
+
+Version 0.5 (Developed 2014-09-20 through 2014-10-19)
+------------------------------------------------------------------------------
+New Features: 
+* `redcap_metadata_read` are tested and public.
+
+Minor Updates:
+* Test suite now uses `testthat::skip_on_cran()` before any call involving OUHSC's REDCap server.
+* Vignette example of subsetting, conditioned on a 2nd variable's value.
 
 Version 0.4 (Developed 2014-09-01 through 2014-09-20)
 ------------------------------------------------------------------------------
@@ -21,7 +59,7 @@ Updates:
 Version 0.3 (Developed 2014-07-03 through 2014-09-01)
 ------------------------------------------------------------------------------
 New Features:
-* Relies on the `httr` package, which provides benefits like the status code message can be captured (eg, 200-OK, 403-Forbidden, 404-NotFound).  See http://cran.r-project.org/web/packages/httr/.
+* Relies on the `httr` package, which provides benefits like the status code message can be captured (eg, 200-OK, 403-Forbidden, 404-NotFound).  See http://cran.r-project.org/package=httr.
 
 Updates:
 * Renamed the former `status_message` to `outcome_message`. This is because the message associated with http code returned is conventionally called the 'status messages' (eg, OK, Forbidden, Not Found).
@@ -55,6 +93,7 @@ Enhancements:
 * redcap_read takes parameter for raw_or_label (Thanks Rollie Parrish #3)
 * redcap_read takes parameter for export_data_access_groups (Thanks Rollie Parrish #4)
 
-GitHub Commits
+GitHub Commits and Releases
 ------------------------------------------------------------------------------
-For a detailed change log, please see https://github.com/OuhscBbmc/REDCapR/commits/master
+* For a detailed change log, please see https://github.com/OuhscBbmc/REDCapR/commits/master.
+* For a list of the major releases, please see https://github.com/OuhscBbmc/REDCapR/releases.
